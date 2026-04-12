@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Free Tiktok Views Generator</title>
+    <title>Free TikTok Views Generator | Validator & Smart UI</title>
     <!-- Meta tags for proper mobile responsiveness -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -18,6 +19,7 @@
             justify-content: center; /* Centers content vertically */
             align-items: center; /* Centers content horizontally */
             position: relative;
+            background-color: #f9fafb;
         }
         /* Top banner style - make it fixed at the top */
         .top-banner {
@@ -31,70 +33,434 @@
             position: fixed; /* Fixes the top banner at the top */
             top: 0; /* Aligns it to the top */
             left: 0;
+            z-index: 50;
+            backdrop-filter: blur(2px);
+            letter-spacing: 0.3px;
         }
         .main-text {
             font-size: 1.25rem; /* Larger font size for the description */
         }
         .form-container {
             width: 100%; /* Full width */
-            max-width: 600px; /* Maximum width for the form */
+            max-width: 650px; /* Maximum width for the form */
             padding: 30px; /* Increased padding for larger form */
             box-sizing: border-box;
             margin-top: 80px; /* Adjusted margin to make space for top content */
             margin-bottom: 20px; /* Adjusted margin to make space for footer */
+            transition: all 0.2s ease;
         }
         .input-field {
             padding: 20px; /* Larger padding for input fields */
-            font-size: 1.5rem; /* Larger font size for input */
-            margin-bottom: 20px;
+            font-size: 1.2rem; /* comfortable font size */
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+            border-radius: 16px;
+            background-color: #fff;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
         }
         .submit-btn {
-            padding: 20px; /* Larger padding for the button */
-            font-size: 1.5rem; /* Larger font size for the button */
+            padding: 18px; /* comfortable padding */
+            font-size: 1.3rem; /* readable button text */
+            font-weight: 700;
+            border-radius: 40px;
+            transition: transform 0.15s, background 0.2s;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #dc2626;
+            transform: scale(0.98);
         }
         /* Footer Text - Positioned higher up */
         .footer-text {
             text-align: center;
-            margin-top: 20px; /* Reduced the margin to push it up */
-            margin-bottom: 20px; /* To add some space before the footer */
+            margin-top: 20px; 
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        /* custom error / success message container - beautiful UI */
+        .message-toast {
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border-radius: 60px;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+        }
+        /* floating error style */
+        .input-error-border {
+            border-color: #ef4444 !important;
+            background-color: #fff5f5 !important;
+        }
+        /* shake effect for invalid field */
+        @keyframes gentleShake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+        .shake-input {
+            animation: gentleShake 0.35s ease-in-out 0s 1;
+        }
+        /* modern tooltip style */
+        .custom-alert {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            border-left: 6px solid;
+            box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.15);
+            padding: 14px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .custom-alert i {
+            font-size: 1.6rem;
+        }
+        .error-alert {
+            border-left-color: #dc2626;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+        .error-alert i {
+            color: #dc2626;
+        }
+        .info-alert {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+            color: #b45309;
+        }
+        .info-alert i {
+            color: #f59e0b;
+        }
+        /* hide alert container */
+        .alert-container {
+            min-height: 80px;
+            width: 100%;
         }
     </style>
 </head>
 <body class="bg-gray-50">
     <!-- Top Banner -->
     <div class="top-banner">
-        Enjoy Free Tiktok Services Daily
+        Enjoy Free TikTok Services Daily 🚀
     </div>
 
     <!-- Main Content -->
     <div class="text-center mt-10 px-4 main-text">
-        <h1 class="text-3xl font-bold text-gray-800">Free Tiktok Views Generator</h1>
-        <p class="text-gray-600 mt-4 text-lg">
+        <h1 class="text-3xl font-bold text-gray-800">Free TikTok Views Generator</h1>
+        <p class="text-gray-600 mt-4 text-lg max-w-2xl mx-auto">
             Want your TikTok videos to dominate the “For You” page? Our <span class="font-bold">free TikTok views generator</span> delivers real, high-speed views to boost your reach—no bots, no fees, just organic growth.
         </p>
     </div>
 
-    <!-- Form Section -->
-    <div class="bg-white shadow-lg rounded-lg p-6 w-11/12 max-w-md mx-auto form-container">
-        <div class="bg-green-100 text-green-700 p-4 rounded-lg mb-4">
-            Place your order now! It will be completed with a 100% delivery guarantee <i class="fas fa-check"></i>
+    <!-- Form Section with validation UI -->
+    <div class="bg-white shadow-xl rounded-2xl p-6 w-11/12 max-w-lg mx-auto form-container">
+        <div class="bg-green-100 text-green-700 p-4 rounded-xl mb-5 flex items-center gap-3 shadow-sm">
+            <i class="fas fa-check-circle text-green-600 text-xl"></i>
+            <span class="font-medium">Place your order now! It will be completed with a 100% delivery guarantee</span>
         </div>
+        
+        <!-- Dynamic Alert Container: shows error / info messages in beautiful UI -->
+        <div id="alertBox" class="alert-container"></div>
+        
         <div class="flex flex-col items-center">
-            <input type="text" placeholder="Enter your TikTok video URL" class="w-full border border-gray-300 rounded-lg mb-4 input-field">
-            <button id="getViewsBtn" class="w-full bg-red-500 text-white rounded-lg text-lg font-semibold submit-btn">Get Views</button>
+            <div class="w-full relative">
+                <input type="text" id="tiktokUrl" placeholder="https://www.tiktok.com/@username/video/123456789..." class="w-full border border-gray-300 rounded-xl mb-2 input-field">
+                <div class="text-xs text-gray-500 mt-1 ml-2 flex items-center gap-1">
+                    <i class="fas fa-link text-gray-400 text-xs"></i> 
+                    <span>Only TikTok video links allowed (e.g., tiktok.com/@user/video/xxxx or vm.tiktok.com)</span>
+                </div>
+            </div>
+            <button id="getViewsBtn" class="w-full bg-red-500 hover:bg-red-600 text-white rounded-xl text-xl font-semibold submit-btn transition-all mt-2">
+                <i class="fab fa-tiktok mr-2"></i> Get Views
+            </button>
         </div>
     </div>
 
     <!-- Footer Text -->
     <div class="footer-text text-gray-600 text-lg">
-        Thousands gain free <span class="font-bold">TikTok Views</span> from us daily!
+        Thousands gain free <span class="font-bold text-red-500">TikTok Views</span> from us daily! 🔥
     </div>
 
     <script>
-        // Get Views button click event
-        document.getElementById('getViewsBtn').addEventListener('click', function() {
-            window.location.href = 'login.html'; // Redirect to login.html page
-        });
+        (function() {
+            // Helper: display custom UI alert messages (beautiful cards) instead of window.alert
+            const alertBox = document.getElementById('alertBox');
+            const urlInput = document.getElementById('tiktokUrl');
+            const getViewsBtn = document.getElementById('getViewsBtn');
+
+            // Clear previous alert and optionally add new message
+            function showMessage(message, type = 'error') {
+                // Clear container
+                alertBox.innerHTML = '';
+                
+                // Create alert div
+                const alertDiv = document.createElement('div');
+                alertDiv.classList.add('custom-alert', 'transition-all', 'duration-300');
+                
+                if (type === 'error') {
+                    alertDiv.classList.add('error-alert');
+                    alertDiv.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div class="flex-1">${message}</div>
+                        <button class="close-alert text-gray-500 hover:text-gray-700 transition text-xl leading-none">&times;</button>
+                    `;
+                } else if (type === 'info') {
+                    alertDiv.classList.add('info-alert');
+                    alertDiv.innerHTML = `
+                        <i class="fas fa-info-circle"></i>
+                        <div class="flex-1">${message}</div>
+                        <button class="close-alert text-gray-500 hover:text-gray-700 transition text-xl leading-none">&times;</button>
+                    `;
+                } else {
+                    // fallback
+                    alertDiv.classList.add('error-alert');
+                    alertDiv.innerHTML = `
+                        <i class="fas fa-ban"></i>
+                        <div class="flex-1">${message}</div>
+                        <button class="close-alert text-gray-500 hover:text-gray-700 transition text-xl leading-none">&times;</button>
+                    `;
+                }
+                
+                alertBox.appendChild(alertDiv);
+                
+                // Add close functionality to the X button
+                const closeBtn = alertDiv.querySelector('.close-alert');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function() {
+                        alertDiv.style.opacity = '0';
+                        setTimeout(() => {
+                            if (alertBox.contains(alertDiv)) {
+                                alertBox.removeChild(alertDiv);
+                            }
+                        }, 200);
+                    });
+                }
+                
+                // Auto remove after 5 seconds for better UX
+                setTimeout(() => {
+                    if (alertDiv && alertBox.contains(alertDiv)) {
+                        alertDiv.style.opacity = '0';
+                        setTimeout(() => {
+                            if (alertBox.contains(alertDiv)) {
+                                alertBox.removeChild(alertDiv);
+                            }
+                        }, 200);
+                    }
+                }, 5000);
+            }
+            
+            // Remove error border styling and reset any error classes
+            function resetInputError() {
+                urlInput.classList.remove('input-error-border', 'shake-input');
+                urlInput.style.borderColor = '';
+                urlInput.style.backgroundColor = '';
+            }
+            
+            // Highlight input with error style + shake
+            function highlightInputError() {
+                urlInput.classList.add('input-error-border', 'shake-input');
+                // remove shake class after animation ends to allow re-shake
+                setTimeout(() => {
+                    urlInput.classList.remove('shake-input');
+                }, 400);
+                // focus on input for better UX
+                urlInput.focus();
+            }
+            
+            // ---------- TIKTOK LINK VALIDATION (STRICT & COMPREHENSIVE) ----------
+            // Function checks if given URL is a valid TikTok video link (supports www, m, vm.tiktok, tiktok.com, etc)
+            // Must contain /video/ or /v/ or vm.tiktok.com pattern, and definitely not other domains.
+            function isValidTikTokVideoLink(link) {
+                if (!link || typeof link !== 'string') return false;
+                
+                let trimmed = link.trim();
+                if (trimmed === "") return false;
+                
+                // Basic pattern: must start with http:// or https:// (allow both)
+                // But if user forgets https? we can add a fallback but they will mostly paste full link
+                // For robust validation, we require http:// or https://
+                if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+                    return false;
+                }
+                
+                // Convert to lowercase for hostname checking
+                let lowerUrl = trimmed.toLowerCase();
+                
+                // 1. Block any non-tiktok domains: must contain 'tiktok.com' OR 'vm.tiktok.com' OR 'tiktok.com/@' etc
+                // But avoid other domains like facebook.com, instagram, youtube, etc.
+                const tiktokDomains = ['tiktok.com', 'vm.tiktok.com', 'm.tiktok.com', 'www.tiktok.com'];
+                let isTikTokDomain = false;
+                for (let domain of tiktokDomains) {
+                    if (lowerUrl.includes(domain)) {
+                        isTikTokDomain = true;
+                        break;
+                    }
+                }
+                // Additionally, support 'tiktok.com/@' pattern but it's already covered by tiktok.com
+                if (!isTikTokDomain) {
+                    return false;
+                }
+                
+                // Now detect if it's a video link: must contain '/video/' or '/v/' or vm.tiktok.com (which redirects to video)
+                // vm.tiktok.com is short link for videos (always a video)
+                const isVmTikTok = lowerUrl.includes('vm.tiktok.com');
+                const hasVideoSlash = lowerUrl.includes('/video/');
+                const hasVSlash = lowerUrl.includes('/v/');
+                // sometimes tiktok embed? but standard is /video/ or short link
+                // Also detect pattern like tiktok.com/@username/video/123456789...
+                // also detect share links like tiktok.com/t/xxxx but those redirect; but /t/ is also video? some sharing links
+                // but safest: vm.tiktok.com OR /video/ OR /v/ after domain, also some pattern /@user/video/
+                // For extra safety we also ensure there's some numeric ID after /video/ or /v/
+                if (isVmTikTok) {
+                    // vm.tiktok.com links are always videos. But also must have some path after domain, but it's safe.
+                    // Additional: reject if it's empty after domain but vm.tiktok.com always redirects.
+                    // But also check that it's not just domain only like "https://vm.tiktok.com" — invalid, need full share code.
+                    const urlObj = tryParseUrl(trimmed);
+                    if (urlObj && urlObj.pathname && urlObj.pathname.length > 1) {
+                        return true;
+                    }
+                    // if pathname just "/" then invalid
+                    if (trimmed.match(/vm\.tiktok\.com\/?$/i)) return false;
+                    return true;
+                }
+                
+                // For standard tiktok.com links: must contain /video/ or /v/ pattern
+                if (hasVideoSlash || hasVSlash) {
+                    // Further ensure there is at least some numbers or characters after /video/ or /v/
+                    // We'll extract after /video/ or /v/ and ensure not empty.
+                    let afterMarker = '';
+                    if (hasVideoSlash) {
+                        const parts = trimmed.split('/video/');
+                        afterMarker = parts.length > 1 ? parts[1] : '';
+                    } else if (hasVSlash) {
+                        const parts = trimmed.split('/v/');
+                        afterMarker = parts.length > 1 ? parts[1] : '';
+                    }
+                    // After marker should not be empty, should contain at least digit or something (video id)
+                    if (afterMarker && afterMarker.trim().length > 0 && !afterMarker.startsWith('?')) {
+                        return true;
+                    } else {
+                        return false; // broken video pattern like .../video/ or /v/ with nothing
+                    }
+                }
+                
+                // Additional pattern: maybe link like tiktok.com/@user/video/123456789 (already captured by /video/)
+                // Also sometimes tiktok embed link: www.tiktok.com/embed/... but not a video direct? we decide to reject non-standard.
+                // For safety, only accept explicit video markers.
+                return false;
+            }
+            
+            // Helper to parse URL safely
+            function tryParseUrl(urlString) {
+                try {
+                    return new URL(urlString);
+                } catch(e) {
+                    return null;
+                }
+            }
+            
+            // Clean input value and also auto prepend https? But better to tell user to paste full link.
+            function normalizeAndValidate(rawValue) {
+                let trimmed = rawValue.trim();
+                if (trimmed === "") return { valid: false, message: "⚠️ TikTok video link cannot be empty. Please paste your video URL." };
+                
+                // If missing protocol, we might add but we'll show error to avoid confusion because validation expects http/https
+                if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+                    return { valid: false, message: "🔗 Invalid link format: URL must start with https:// or http:// (e.g., https://www.tiktok.com/@user/video/123456)." };
+                }
+                
+                // Perform strict tiktok video validation
+                if (isValidTikTokVideoLink(trimmed)) {
+                    return { valid: true, message: "", cleaned: trimmed };
+                } else {
+                    // Provide informative message based on domain/pattern.
+                    if (trimmed.includes('tiktok.com') || trimmed.includes('vm.tiktok.com')) {
+                        return { valid: false, message: "📵 This TikTok URL is not a valid video link. Make sure it contains '/video/' or '/v/' (e.g., https://www.tiktok.com/@username/video/123456789). Short links like vm.tiktok.com/xxxx are also accepted." };
+                    } else {
+                        return { valid: false, message: "❌ Only TikTok video links are allowed! Please enter a valid TikTok video URL (e.g., https://www.tiktok.com/@user/video/123456789). Other domains are not supported." };
+                    }
+                }
+            }
+            
+            // main action: validate and redirect or show pretty error
+            function handleGetViews() {
+                // Reset any previous visual errors
+                resetInputError();
+                
+                const rawLink = urlInput.value;
+                const validation = normalizeAndValidate(rawLink);
+                
+                if (!validation.valid) {
+                    // Show error message in beautiful UI
+                    showMessage(validation.message, 'error');
+                    // highlight input field with red border and gentle shake
+                    highlightInputError();
+                    return; // stop redirection
+                }
+                
+                // Valid TikTok video link! Also show success message optional (but for user experience we can show tiny success and then redirect)
+                // But the requirement: only if valid then redirect to login.html
+                // We'll display a quick "success" message before redirect for polish, but redirect quickly so it's not intrusive.
+                // To make it seamless we show brief green-ish info? Actually we can just redirect. But we want to be consistent with UI.
+                // Create a success alert that auto disappears before redirect, but better: display and then redirect after 0.6s.
+                // However we also want to ensure user sees that it's valid. But we can directly redirect without delay as per requirement: "next page".
+                // But to match "beautiful UI", we will not show error but redirect immediately but to ensure the feedback is smooth.
+                // Option: show a small success message for 0.5s? but the spec doesn't require success alert, only error messages in nice UI.
+                // Also if redirect is too fast, it's fine. We'll just redirect to login.html after validation passes.
+                // But also we can clear any previous alert before redirect
+                alertBox.innerHTML = ''; // clear any errors
+                window.location.href = 'login.html';
+            }
+            
+            // Additionally: also detect on pressing Enter key from input field for convenience
+            function onEnterPress(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    handleGetViews();
+                }
+            }
+            
+            // Attach event listeners
+            getViewsBtn.addEventListener('click', handleGetViews);
+            urlInput.addEventListener('keypress', onEnterPress);
+            
+            // Real-time live reset of error styling when user starts typing
+            urlInput.addEventListener('input', function() {
+                // Remove error classes and alert if they exist, but we can just reset border and remove alert when user begins typing again for better UX.
+                resetInputError();
+                // Optionally clear alert when user starts typing (makes interface friendlier)
+                if (alertBox.children.length > 0) {
+                    // but only if the alert exists, fade out and clear
+                    const existingAlerts = alertBox.querySelectorAll('.custom-alert');
+                    existingAlerts.forEach(alert => {
+                        alert.style.opacity = '0';
+                        setTimeout(() => {
+                            if (alert.parentNode) alert.remove();
+                        }, 200);
+                    });
+                }
+            });
+            
+            // Bonus: If user clicks outside or focus, we don't add error unless they submit.
+            // Additionally, for completeness, prevent any accidental form submit.
+            document.querySelector('.form-container')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleGetViews();
+            });
+            
+            // Additional check: in case the form container has any default form behavior, ensure all good
+            const formWrapper = document.querySelector('.form-container');
+            if (formWrapper) {
+                // no actual form element but just in case user adds something
+            }
+            
+            // For extra user friendly: show small placeholder example
+            urlInput.placeholder = "https://www.tiktok.com/@user/video/1234567890123456789";
+        })();
     </script>
 </body>
 </html>
